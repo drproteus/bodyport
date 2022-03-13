@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class CompressedECG(models.Model):
     id = models.UUIDField(primary_key=True)
     original_size = models.IntegerField()

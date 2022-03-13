@@ -7,16 +7,15 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='CompressedECG',
+            name="CompressedECG",
             fields=[
-                ('id', models.UUIDField(primary_key=True, serialize=False)),
-                ('original_size', models.IntegerField()),
-                ('data', models.FileField(upload_to='')),
+                ("id", models.UUIDField(primary_key=True, serialize=False)),
+                ("original_size", models.IntegerField()),
+                ("data", models.FileField(upload_to="")),
             ],
         ),
     ]
