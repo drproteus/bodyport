@@ -9,8 +9,8 @@
     <form class="ui form" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="inline fields">
+        <label>Raw Data</label>
         <div class="field">
-          <label>Raw Data:</label>
           <input type="file" name="data" />
         </div>
         <button class="ui button primary" type="submit">Compress</button>
