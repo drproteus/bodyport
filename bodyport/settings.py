@@ -70,7 +70,7 @@ DATABASES = {
         "USER": "bodyport",
         "PASSWORD": "bodyport",
         "HOST": "db",
-        "PORT": 5432
+        "PORT": 5432,
     }
 }
 
@@ -109,12 +109,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = "static/"
+# STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "uploads/")
-MEDIA_URL = "/uploads/"
+# MEDIA_ROOT = os.path.join(BASE_DIR, "uploads/")
+# MEDIA_URL = "/uploads/"
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
+STATIC_URL = "/static/"
+STATIC_ROOT = "/static_files/"
+
+DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
+STATICFILES_STORAGE = "minio_storage.storage.MinioStaticStorage"
+MINIO_STORAGE_ENDPOINT = "minio:9000"
+MINIO_STORAGE_ACCESS_KEY = "bodyport-access"
+MINIO_STORAGE_SECRET_KEY = "bodyport-secret"
+MINIO_STORAGE_USE_HTTPS = False
+MINIO_STORAGE_MEDIA_BUCKET_NAME = "local-media"
+MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
+MINIO_STORAGE_STATIC_BUCKET_NAME = "local-static"
+MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
+MINIO_STORAGE_MEDIA_URL = "http://localhost:9000/local-media"
+MINIO_STORAGE_STATIC_URL = "http://localhost:9000/local-static"
