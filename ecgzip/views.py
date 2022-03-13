@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render, HttpResponse
+from django.http import Http404
 from django.urls import reverse
 from django.views import View
 from ecgzip.forms import CompressionForm
