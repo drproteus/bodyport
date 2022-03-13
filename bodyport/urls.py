@@ -13,13 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from audioop import reverse
 from django.conf import settings
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path
-from ecgzip.views import ecg_compress
+from ecgzip.views import ecg_compress, ECGCompress, ECGCompressionResult
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", ECGCompress.as_view(), name="ecg-compress"),
+    path(
+        "result/<uuid:compression_id>/",
+        ECGCompressionResult.as_view(),
+        name="compression-result",
+    ),
     path("compress/", ecg_compress),
 ]

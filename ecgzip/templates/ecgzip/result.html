@@ -1,0 +1,22 @@
+{% extends "ecgzip/base.html" %} {% block body %}
+<div class="ui segment">
+  <div class="ui list">
+    <div class="item">
+      <div class="header">Size</div>
+      {{ size }}
+    </div>
+    <div class="item">
+      <div class="header">Original Size</div>
+      {{ original_size }}
+    </div>
+    <div class="item">
+      <div class="header">Compression Ratio</div>
+      {{ compression_ratio }}
+    </div>
+    <div class="item">
+      <div class="header">Link</div>
+      <a href="{{ link }}">{{ link }}</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

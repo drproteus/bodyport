@@ -1,0 +1,21 @@
+{% extends "ecgzip/base.html" %}
+<title>ECG Compressor</title>
+{% block body %}
+<div class="ui segments">
+  <div class="ui segment">
+    <h1 class="ui header">ECG Compressor</h1>
+  </div>
+  <div class="ui segment">
+    <form class="ui form" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="inline fields">
+        <div class="field">
+          <label>Raw Data:</label>
+          <input type="file" name="data" />
+        </div>
+        <button class="ui button primary" type="submit">Compress</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

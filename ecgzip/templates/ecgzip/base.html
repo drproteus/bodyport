@@ -1,0 +1,12 @@
+{% load static %}
+<head>
+  <link rel="stylesheet" href="{% static 'ecgzip.css' %}"/>
+  <link rel="stylesheet" href="{% static 'semantic.min.css' %}"/>
+  <script src="{% static 'semantic.min.js' %}"></script>
+</head>
+<body>
+<div id="app-container" class="ui container">
+{% block body %}
+{% endblock %}
+</div>
+</body>
