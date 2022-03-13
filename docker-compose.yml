@@ -1,0 +1,28 @@
+version: "3.3"
+services:
+  bodyport:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command: python manage.py runserver 0.0.0.0:8000
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: bodyport
+      POSTGRES_USER: bodyport
+      POSTGRES_PASSWORD: bodyport
+  minio:
+    image: minio/minio
+    environment:
+      MINIO_ACCESS_KEY: bodyport-access
+      MINIO_SECRET_KEY: bodyport-secret
+    ports:
+      - "9000:9000"
+    volumes:
+      - bodyport-storage:/data
+    command: server --address :9000 /data
+volumes:
+  bodyport-storage:
