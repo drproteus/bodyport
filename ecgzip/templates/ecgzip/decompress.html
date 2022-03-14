@@ -2,17 +2,17 @@
 {% block body %}
 <div class="ui segments">
   <div class="ui segment">
-    <h2 class="ui header">Compress</h2>
+    <h2 class="ui header">Decompress</h2>
   </div>
   <div class="ui segment">
     <form class="ui form" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="inline fields">
-        <label>Raw Data</label>
+        <label>Compressed Data</label>
         <div class="field">
           <input type="file" name="data" />
         </div>
-        <button class="ui button primary" type="submit">Compress</button>
+        <button class="ui button primary" type="submit">Decompress</button>
       </div>
     </form>
   </div>

@@ -1,12 +1,21 @@
 {% load static %}
 <head>
-  <link rel="stylesheet" href="{% static 'ecgzip.css' %}"/>
-  <link rel="stylesheet" href="{% static 'semantic.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'ecgzip.css' %}" />
+  <link rel="stylesheet" href="{% static 'semantic.min.css' %}" />
   <script src="{% static 'semantic.min.js' %}"></script>
+  <title>ECGZip</title>
 </head>
 <body>
-<div id="app-container" class="ui container">
-{% block body %}
-{% endblock %}
-</div>
+  <div id="app-container" class="ui container">
+    <div class="ui secondary menu">
+      <h1 class="ui header">ECGZip</h1>
+      <div class="item">
+        <a href="/">compress</a>
+      </div>
+      <div class="item">
+        <a href="/decompress/">decompress</a>
+      </div>
+    </div>
+    {% block body %} {% endblock %}
+  </div>
 </body>
