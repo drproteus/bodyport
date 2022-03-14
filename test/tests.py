@@ -26,3 +26,10 @@ def test_compression_structure():
     assert test_data["small"] == small
     assert test_data["big"] == big
     assert test_data["locs"] == locs
+
+
+def test_compression_reduces_file_size():
+    with open("test/data/sample_ecg_raw.bin", "rb") as f:
+        original = f.read()
+    compressed = ECGCompressor.compress(original)
+    assert len(compressed) < len(original)
