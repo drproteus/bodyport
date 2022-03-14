@@ -8,7 +8,6 @@ from ecgzip.views import (
 )
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
     path("", ECGCompress.as_view(), name="ecg-compress"),
     path(
         "result/<uuid:compression_id>/",
