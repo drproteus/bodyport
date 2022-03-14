@@ -17,7 +17,12 @@ class ECGCompress(View):
             return render(
                 request, "ecgzip/compress.html", {"errors": form.errors.as_ul()}
             )
-        record = form.save()
+        try:
+            record = form.save()
+        except Exception as e:
+            return render(
+                request, "ecgzip/compress.html", {"errors": e}
+            )
         return redirect(
             reverse("compression-result", kwargs={"compression_id": record.id})
         )
@@ -51,7 +56,12 @@ class ECGDecompress(View):
             return render(
                 request, "ecgzip/decompress.html", {"errors": form.errors.as_ul()}
             )
-        record = form.save()
+        try:
+            record = form.save()
+        except Exception as e:
+            return render(
+                request, "ecgzip/decompress.html", {"errors": e}
+            )
         return redirect(
             reverse("decompression-result", kwargs={"decompression_id": record.id})
         )
