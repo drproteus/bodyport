@@ -1,5 +1,7 @@
 # Compression Scheme
 
+[the code](./util/compression.py)
+
 Based on some research, it became clear that for a numerical sequence, there is no ubiquitous solution for lossless compression-- it is very much dependent on the shape of the data.
 
 I took the sample data, parsed it into the series of 3-byte signed integers, and made a quick plot of the values:
