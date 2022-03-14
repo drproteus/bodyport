@@ -13,7 +13,7 @@ So, two things seem apparent:
 
 A common strategy for reducing the space required by continous series is *delta encoding*. Doing so, the values of this series (the deltas between each element of the original) become even smaller. In general, we could probably store those values in 2-bytes since we're wasting the leading bits for most of the file. Unfortunately, the spikes yield deltas of a higher magnitude.
 
-So, this solution stores all values in the 2-byte signed integer range in one sequence of 2-bytes, followed by the rest of the values that require more than 2-bytes to store. While separating the values, we make note of where in the original sequence they go.
+So, this solution stores all values in the 2-byte signed integer range in one sequence of 2-bytes, followed by the rest of the values that require more than 2-bytes to store. While separating the values, we make note of where in the original sequence they go. Also important to keep is the length of the original sequence.
 
 For each of the series,
 
@@ -34,3 +34,9 @@ ECGCompressed = Struct(
     "locs" / Array(this.len_locs, BytesInteger(2, signed=False)),
 )
 ```
+
+Decompression works by iterating `i` from 0 to `len_origin` and keeping two other counters to indicate place in the `small` values array (`j`) and place in the `big` values array (`k`). If `i < len_locs and i == locs[k]`, then add `big[k]` to the original sequence and increment `k`, otherwise add `small[j]` to the sequence and increment `j`.
+
+Then, since the sequence compressed is delta encoded we need to also delta decode before we get the final original file data.
+
+Using the `sample_ecg_raw.bin` file provided we're able to compress the original 12285 bytes file to 8225 bytes, yielding a compression ratio of 1.494. For comparison, using Python's `bz2` library yields compressed size of 9327, for a ratio of 1.317.
