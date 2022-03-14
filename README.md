@@ -40,3 +40,14 @@ Decompression works by iterating `i` from 0 to `len_origin` and keeping two othe
 Then, since the sequence compressed is delta encoded we need to also delta decode before we get the final original file data.
 
 Using the `sample_ecg_raw.bin` file provided we're able to compress the original 12285 bytes file to 8225 bytes, yielding a compression ratio of 1.494. For comparison, using Python's `bz2` library yields compressed size of 9327, for a ratio of 1.317.
+
+
+# Application
+
+The application is built with Django, and uses very basic forms to POST the input file to an endpoint that does simple validation, loads the file into memory, runs compression (or decompression), and writes the file to storage while creating a record of the compressed file, keeping track of size info. To make it as close to something that would run in production as possible, I opted for Postgres for the database and MinIO for the storage backend (which works similar to S3).
+
+
+## Screenshots
+![compress](./docs/compression_form.png)
+
+![decompress](./docs/decompression_form.png)
