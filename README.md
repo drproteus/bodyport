@@ -46,8 +46,67 @@ Using the `sample_ecg_raw.bin` file provided we're able to compress the original
 
 The application is built with Django, and uses very basic forms to POST the input file to an endpoint that does simple validation, loads the file into memory, runs compression (or decompression), and writes the file to storage while creating a record of the compressed file, keeping track of size info. To make it as close to something that would run in production as possible, I opted for Postgres for the database and MinIO for the storage backend (which works similar to S3).
 
+**Routes**
+
+* `GET /` renders page with compression form.
+* `POST /` expects file at key `data` in form payload, returns redirect to the result page of compression operation (identified by UUID `id`).
+* `GET /result/<uuid>/` renders compression result page with original size, compressed size, ratio, and link to compressed data.
+* `GET /decompress/` renderes page with decompression form.
+* `POST /decompress/` expects file at key `data` in form payload, returns redirect to the result page of decompression operation.
+* `GET /original/<uuid>/` renders decompression result with link to decompressed data.
+
+**Models**
+
+* `CompressedECG`
+    * `id`
+    * `original_size`
+    * `data`
+    * `created_at`
+
+* `DecompressedECG`
+    * `id`
+    * `data`
+
+`data` in both cases is a `FileField`. The link to the file via the configured storage backend is at `data.url`
+
+# Setup (with Docker)
+
+Since this is a multi-service application, it's suitable for running via Docker. There is a straightforward `Dockerfile` that sets up the Django side for the webserver service. This makes it easy to get a `docker-compose.yml` going that orchestrates all the services. Assuming you have ports `8000` and `9000` open, it should work out of the box (TODO: paramaterizing this via env).
+
+### build
+```bash
+docker-compose build bodyport
+
+# or to rebuild on a requirements.txt change
+
+docker-compose build --no-cache bodyport
+```
+
+### initialize
+```bash
+# bring up the server, database, storage backend
+docker-compose up -d
+
+# run migrations
+docker-compose exec bodyport python manage.py migrate
+
+# collect static assets
+docker-compose exec bodyport python manage.py collectstatic
+```
+
+Then navigate to http://localhost:8000
+
+
+### running tests
+```bash
+# to run the test suite via pytest
+docker-compose exec bodyport pytest
+```
+
 
 ## Screenshots
 ![compress](./docs/compression_form.png)
 
 ![decompress](./docs/decompression_form.png)
+
+![compression-result](./docs/result.png)
