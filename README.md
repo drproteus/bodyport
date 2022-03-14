@@ -35,7 +35,7 @@ ECGCompressed = Struct(
 )
 ```
 
-Decompression works by iterating `i` from 0 to `len_origin` and keeping two other counters to indicate place in the `small` values array (`j`) and place in the `big` values array (`k`). If `i < len_locs and i == locs[k]`, then add `big[k]` to the original sequence and increment `k`, otherwise add `small[j]` to the sequence and increment `j`.
+Decompression works by iterating `i` from 0 to `len_origin` and keeping two other counters to indicate place in the `small` values array (`j`) and place in the `big` values array (`k`). If `k < len_locs and i == locs[k]`, then add `big[k]` to the original sequence and increment `k`, otherwise add `small[j]` to the sequence and increment `j`.
 
 Then, since the sequence compressed is delta encoded we need to also delta decode before we get the final original file data.
 
