@@ -5,6 +5,11 @@
     <h2 class="ui header">Compress</h2>
   </div>
   <div class="ui segment">
+  {% if errors %}
+    <div class="ui red message">
+    {{ errors }}
+    </div>
+  {% endif %}
     <form class="ui form" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="inline fields">
